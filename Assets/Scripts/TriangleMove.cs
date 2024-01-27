@@ -27,6 +27,7 @@ public class TriangleMove : MonoBehaviour
         if(transform.position.y>6){
             gameObject.SetActive(false);
             spawner.Spawn();
+            Destroy(gameObject);
         }
     }
 

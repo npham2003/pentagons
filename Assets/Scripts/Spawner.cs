@@ -13,17 +13,30 @@ public class Spawner : MonoBehaviour
     private float moveSpeed = 1;
 
     public GameObject pentagon;
+
+    public int[] melody = new int[5];
+    public int iter=0;
     // Start is called before the first frame update
     void Start()
     {
+        GenerateNewMelody();
         Spawn();
+        
     }
 
+    private void GenerateNewMelody(){
+        for (int i=0;i<melody.Length;i++){
+            melody[i]=UnityEngine.Random.Range(0,5);
+        }
+    }
     // Update is called once per frame
-    void Update()
+    public void CorrectPickup()
     {
-        
-
+        iter+=1;
+        iter=iter%5;
+        if(iter==0){
+            GenerateNewMelody();
+        }
     }
 
     public void Spawn(){
@@ -40,5 +53,6 @@ public class Spawner : MonoBehaviour
         // newTriangle.transform.LookAt(pentagon.transform);
         print(newTriangle.transform.position);
         canSpawn=false;
+        
     }
 }

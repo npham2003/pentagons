@@ -17,7 +17,7 @@ public class TriangleMove : MonoBehaviour
     void Update()
     {
         Vector3 path = pentagon.position - transform.position;
-        transform.position += (path.normalized)*Time.deltaTime*Constants.speed;
+        transform.position += (path.normalized)*Time.deltaTime*1;
         print(Time.deltaTime);
     }
 }

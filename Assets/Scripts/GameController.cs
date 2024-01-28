@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static MelodyModel;
 using static PentagonController;
 using static Spawner;
@@ -119,14 +120,14 @@ public class GameController : MonoBehaviour
         //WON STATE
         if(player == PlayerState.won)
         {
-
+            SceneManager.LoadScene("Win Scene");
         }
 
 
         //LOST STATE
         if(player == PlayerState.lost)
         {
-
+            SceneManager.LoadScene("Lose Scene");
         }
 
     }

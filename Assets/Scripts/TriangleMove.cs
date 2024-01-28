@@ -10,12 +10,16 @@ public class TriangleMove : MonoBehaviour
     
     public GameObject pentagon;
     public Vector3 path;
+   
     
     private Spawner spawner;
     public float speed;
+   
+
     // Start is called before the first frame update
     void Start()
     {
+        
 
     }
 
@@ -24,7 +28,8 @@ public class TriangleMove : MonoBehaviour
     {
         
         transform.position += (path.normalized)*Time.deltaTime*speed;
-        if(transform.position.y>6){
+       
+        if (transform.position.y>6){
             gameObject.SetActive(false);
             spawner.Spawn();
             Destroy(gameObject);
@@ -36,7 +41,6 @@ public class TriangleMove : MonoBehaviour
         transform.position=position;
         pentagon = pent;
         path = pentagon.transform.position - transform.position;
-        spawner=manage;
-        
+        spawner=manage; 
     }
 }

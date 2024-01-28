@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class PentagonController : MonoBehaviour
 {
-    private SpriteRenderer pentagon;
+    public SpriteRenderer pentagon;
     public Sprite image;
     public KeyCode key;
-    // Start is called before the first frame update
-    void Start()
+    public GameController gameController;
+    public static GameObject currentCollisionObject = null;
+
+
+    private void Start()
     {
-        pentagon=GetComponent<SpriteRenderer>();
+        gameController = GetComponent<GameController>(); 
     }
+
 
     // Update is called once per frame
     void Update()
@@ -23,6 +27,20 @@ public class PentagonController : MonoBehaviour
         
         if(Input.GetKeyUp(key)){
             pentagon.color = new Color (0,1,0,1);
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        currentCollisionObject = other.gameObject;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject == currentCollisionObject)
+        {
+            currentCollisionObject = null;
         }
     }
 }

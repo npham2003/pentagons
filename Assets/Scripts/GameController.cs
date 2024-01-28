@@ -31,6 +31,10 @@ public class GameController : MonoBehaviour
     public Melody currentMelody;
     public Spawner triangle;
 
+    public int lives = 3;
+
+    public GameObject[] lifeIcons;
+
     private void OnEnable()
     {
         player = PlayerState.none; 
@@ -59,48 +63,54 @@ public class GameController : MonoBehaviour
         if(player == PlayerState.playing)
         {
             //if triangle enters pentagon and player presses space check if the triangle is the correct one and activate the correct triangle on the pentagon
-            if(currentCollisionObject != null && Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("hit tri");
-                KeyValuePair<Color, TriangleTone> currentKeyTriangle = currentMelody.triangles[0];
-                if (randomTriangle.Key == currentKeyTriangle.Key)
+            if(Input.GetKeyDown(KeyCode.Space)){
+                if(pentagonController.canPickUp)
                 {
-                    if (currentKeyTriangle.Key == currentMelody.triangles[0].Key)
+                    Debug.Log("hit tri");
+                    KeyValuePair<Color, TriangleTone> currentKeyTriangle = currentMelody.triangles[0];
+                    if (randomTriangle.Key == currentKeyTriangle.Key)
                     {
-                        topLeftTri.SetActive(true);
-                        topLeftTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
-                        currentKeyTriangle = currentMelody.triangles[1];
-                     
-                    }
-                    else if (currentKeyTriangle.Key == currentMelody.triangles[1].Key)
-                    {
-                        topCenterTri.SetActive(true);
-                        topCenterTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
-                        currentKeyTriangle = currentMelody.triangles[2];
-                     
-                    }
-                    else if (currentKeyTriangle.Key == currentMelody.triangles[2].Key)
-                    {
-                        topRightTri.SetActive(true);
-                        topRightTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
-                        currentKeyTriangle = currentMelody.triangles[3];
+                        if (currentKeyTriangle.Key == currentMelody.triangles[0].Key)
+                        {
+                            topLeftTri.SetActive(true);
+                            topLeftTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
+                            currentKeyTriangle = currentMelody.triangles[1];
                         
-
-                    }
-                    else if (currentKeyTriangle.Key == currentMelody.triangles[3].Key)
-                    {
-                        BottomRightTri.SetActive(true);
-                        BottomRightTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
-                        currentKeyTriangle = currentMelody.triangles[4];
+                        }
+                        else if (currentKeyTriangle.Key == currentMelody.triangles[1].Key)
+                        {
+                            topCenterTri.SetActive(true);
+                            topCenterTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
+                            currentKeyTriangle = currentMelody.triangles[2];
                         
+                        }
+                        else if (currentKeyTriangle.Key == currentMelody.triangles[2].Key)
+                        {
+                            topRightTri.SetActive(true);
+                            topRightTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
+                            currentKeyTriangle = currentMelody.triangles[3];
+                            
 
+                        }
+                        else if (currentKeyTriangle.Key == currentMelody.triangles[3].Key)
+                        {
+                            BottomRightTri.SetActive(true);
+                            BottomRightTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
+                            currentKeyTriangle = currentMelody.triangles[4];
+                            
+
+                        }
+                        else if (currentKeyTriangle.Key == currentMelody.triangles[4].Key)
+                        {
+                            BottomLeftTri.SetActive(true);
+                            BottomLeftTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
+                        
+                        }
+                    }else{
+                        LoseLife();
                     }
-                    else if (currentKeyTriangle.Key == currentMelody.triangles[4].Key)
-                    {
-                        BottomLeftTri.SetActive(true);
-                        BottomLeftTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
-                      
-                    }
+                }else{
+                    LoseLife();
                 }
             }
         }
@@ -128,6 +138,14 @@ public class GameController : MonoBehaviour
         int randomIndex = Random.Range(0, allMelodies.Count);
         return allMelodies[randomIndex];
 
+    }
+
+    private void LoseLife(){
+        lives-=1;
+        lifeIcons[lives].SetActive(false);
+        if(lives==0){
+            player = PlayerState.lost;
+        }
     }
 
 }

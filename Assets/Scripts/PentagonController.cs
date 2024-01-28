@@ -10,6 +10,8 @@ public class PentagonController : MonoBehaviour
     public GameController gameController;
     public static GameObject currentCollisionObject = null;
 
+    public bool canPickUp = false;
+
 
     private void Start()
     {
@@ -33,14 +35,18 @@ public class PentagonController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        currentCollisionObject = other.gameObject;
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject == currentCollisionObject)
-        {
-            currentCollisionObject = null;
+        if(other.tag=="Triangle"){
+            currentCollisionObject = other.gameObject;
+            canPickUp = true;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.tag=="Triangle"){
+            currentCollisionObject = null;
+            canPickUp = false;
+        }
+    }
+
+
 }

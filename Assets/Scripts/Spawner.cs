@@ -10,8 +10,7 @@ public class Spawner : MonoBehaviour
     public GameObject trianglePrefab;
     public GameObject newTriangle;
 
-    [SerializeField]
-    private Boolean canSpawn = true;
+ 
 
     [SerializeField]
     private float moveSpeed = 1;
@@ -37,8 +36,8 @@ public class Spawner : MonoBehaviour
 
         };
 
-        GenerateNewMelody();
-        Spawn();
+        
+
         
     }
 
@@ -77,7 +76,7 @@ public class Spawner : MonoBehaviour
         // moveScript.path = pentagon.transform.position - transform.position;
         // newTriangle.transform.LookAt(pentagon.transform);
    
-        canSpawn=false;
+        
         
     }
 

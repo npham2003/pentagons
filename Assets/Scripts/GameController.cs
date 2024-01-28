@@ -14,6 +14,9 @@ public class GameController : MonoBehaviour
     {
         none,
         start,
+        cutscene1,
+        cutscene2,
+        cutscene3,
         playing,
         won,
         lost
@@ -32,9 +35,18 @@ public class GameController : MonoBehaviour
     public Melody currentMelody;
     public Spawner triangle;
 
+    public GameObject tutorial;
+
+    public GameObject[] tutTriangles;
+
     public int lives = 3;
 
     public GameObject[] lifeIcons;
+
+    public GameObject playerPentagon;
+    KeyValuePair<Color, TriangleTone> currentKeyTriangle;
+
+    private bool stop;
 
     private void OnEnable()
     {
@@ -56,10 +68,31 @@ public class GameController : MonoBehaviour
         if(player == PlayerState.start)
         {
             currentMelody = GetRandomMelody();
-            player = PlayerState.playing;
+            player = PlayerState.cutscene1;
 
         }
 
+        if(player == PlayerState.cutscene1){
+            playerPentagon.SetActive(false);
+            tutorial.SetActive(true);
+            
+            for(int i=0;i<tutTriangles.Length;i++){
+                tutTriangles[i].GetComponent<SpriteRenderer>().color = currentMelody.triangles[i].Key;
+                
+            }
+
+            StartCoroutine(colorTutorial(tutTriangles));
+            player = PlayerState.cutscene2;
+  
+        }
+        if(player == PlayerState.cutscene3){
+           
+            triangle.Spawn();
+            playerPentagon.SetActive(true);
+            tutorial.SetActive(false);
+            player = PlayerState.playing;
+            currentKeyTriangle = currentMelody.triangles[0];
+        }
         //PLAYING STATE
         if(player == PlayerState.playing)
         {
@@ -68,7 +101,7 @@ public class GameController : MonoBehaviour
                 if(pentagonController.canPickUp)
                 {
                     Debug.Log("hit tri");
-                    KeyValuePair<Color, TriangleTone> currentKeyTriangle = currentMelody.triangles[0];
+                    
                     if (randomTriangle.Key == currentKeyTriangle.Key)
                     {
                         if (currentKeyTriangle.Key == currentMelody.triangles[0].Key)
@@ -105,6 +138,7 @@ public class GameController : MonoBehaviour
                         {
                             BottomLeftTri.SetActive(true);
                             BottomLeftTri.GetComponent<SpriteRenderer>().color = currentKeyTriangle.Key;
+                            player = PlayerState.won;
                         
                         }
                     }else{
@@ -137,10 +171,20 @@ public class GameController : MonoBehaviour
     {
 
         int randomIndex = Random.Range(0, allMelodies.Count);
+       
         return allMelodies[randomIndex];
 
     }
 
+    IEnumerator colorTutorial(GameObject[] triangles){
+        for(int i=0;i<triangles.Length;i++){
+            Color oldColor = triangles[i].GetComponent<SpriteRenderer>().color;
+            triangles[i].GetComponent<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,0.5f);
+            yield return new WaitForSeconds(1);
+            triangles[i].GetComponent<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,1);
+        }
+        player=PlayerState.cutscene3;
+    }
     private void LoseLife(){
         lives-=1;
         lifeIcons[lives].SetActive(false);

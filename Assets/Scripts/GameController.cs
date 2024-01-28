@@ -46,7 +46,10 @@ public class GameController : MonoBehaviour
     public GameObject playerPentagon;
     public int currentKeyTriangle;
 
-    private bool stop;
+    public AudioSource audioSource;
+    
+    
+
 
     private void OnEnable()
     {
@@ -57,6 +60,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         player = PlayerState.start;
+        audioSource = gameObject.GetComponent<AudioSource>();
 
     }
 
@@ -180,6 +184,8 @@ public class GameController : MonoBehaviour
         for(int i=0;i<triangles.Length;i++){
             Color oldColor = triangles[i].GetComponent<SpriteRenderer>().color;
             triangles[i].GetComponent<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,0.5f);
+            audioSource.clip=playerPentagon.GetComponent<PentagonController>().tones[currentMelody.triangles[i]];
+            audioSource.Play();
             yield return new WaitForSeconds(1);
             triangles[i].GetComponent<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,1);
         }

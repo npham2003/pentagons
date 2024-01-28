@@ -12,7 +12,7 @@ public class PentagonController : MonoBehaviour
 
     public bool canPickUp = false;
 
-
+    public AudioClip[] tones;
     private void Start()
     {
         gameController = GetComponent<GameController>(); 

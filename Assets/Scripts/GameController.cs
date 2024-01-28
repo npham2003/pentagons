@@ -170,7 +170,11 @@ public class GameController : MonoBehaviour
 
     }
 
-
+    public void TriangleDestroyed(){
+        if (randomTriangle.Key == melodyColors[currentKeyTriangle]){
+            LoseLife();
+        }
+    }
     public static Melody GetRandomMelody()
     {
 

@@ -41,20 +41,6 @@ public class Spawner : MonoBehaviour
         
     }
 
-    private void GenerateNewMelody(){
-        for (int i=0;i<melody.Length;i++){
-            melody[i]=UnityEngine.Random.Range(0,5);
-        }
-    }
-    // Update is called once per frame
-    public void CorrectPickup()
-    {
-        iter+=1;
-        iter=iter%5;
-        if(iter==0){
-            GenerateNewMelody();
-        }
-    }
 
     public void Spawn(){
         float x = UnityEngine.Random.Range(-10,10);

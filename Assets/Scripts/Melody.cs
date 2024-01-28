@@ -6,12 +6,12 @@ using static MelodyModel;
 public class Melody 
 {
   
-    public List<KeyValuePair<Color, TriangleTone>> triangles;
+    public List<int> triangles;
     public string melodyKey;
 
     public Melody(
         string melodyKey,
-        List<KeyValuePair<Color, TriangleTone>> triangles
+        List<int> triangles
         )
     {
         this.melodyKey = melodyKey;

@@ -1,23 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
+using UnityEditor.Scripting;
 using UnityEngine;
 
 public class TriangleMove : MonoBehaviour
 {
 
     
-    public Transform pentagon;
+    public GameObject pentagon;
+    public Vector3 path;
+    
+    private Spawner spawner;
+    public float speed;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 path = pentagon.position - transform.position;
-        transform.position += (path.normalized)*Time.deltaTime*1;
-        print(Time.deltaTime);
+        
+        transform.position += (path.normalized)*Time.deltaTime*speed;
+        if(transform.position.y>6){
+            gameObject.SetActive(false);
+            spawner.Spawn();
+            Destroy(gameObject);
+        }
+    }
+
+    public void Setup(Vector3 position, float sp, GameObject pent, Spawner manage){
+        speed =sp;
+        transform.position=position;
+        pentagon = pent;
+        path = pentagon.transform.position - transform.position;
+        spawner=manage;
+        
     }
 }

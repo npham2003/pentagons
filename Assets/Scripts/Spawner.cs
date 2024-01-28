@@ -76,7 +76,7 @@ public class Spawner : MonoBehaviour
         // moveScript.pentagon=pentagon;
         // moveScript.path = pentagon.transform.position - transform.position;
         // newTriangle.transform.LookAt(pentagon.transform);
-        print(newTriangle.transform.position);
+   
         canSpawn=false;
         
     }

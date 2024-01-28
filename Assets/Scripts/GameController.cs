@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour
         if(player == PlayerState.playing)
         {
             //if triangle enters pentagon and player presses space check if the triangle is the correct one and activate the correct triangle on the pentagon
-            if(currentCollisionObject != null && Input.GetKeyDown(KeyCode.Space))
+            if(pentagonController.canPickUp && Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("hit tri");
                 KeyValuePair<Color, TriangleTone> currentKeyTriangle = currentMelody.triangles[0];

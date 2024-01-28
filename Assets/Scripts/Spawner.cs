@@ -18,8 +18,8 @@ public class Spawner : MonoBehaviour
     public GameObject pentagon;
     public Dictionary<Color, int> possibleTriangles;
     public Color triangleColor;
-   
-
+    public GameObject pentagon2;
+    public AudioSource audioSource;
 
     public int[] melody = new int[5];
     public int iter=0;
@@ -70,7 +70,8 @@ public class Spawner : MonoBehaviour
         // newTriangle.transform.position = transform.position;
         TriangleMove moveScript = newTriangle.GetComponent<TriangleMove>();
         moveScript.Setup(transform.position, moveSpeed, pentagon, this);
-        
+        audioSource.clip=pentagon2.GetComponent<PentagonController>().tones[randomTriangle.Value];
+        audioSource.Play();
         // moveScript.speed=moveSpeed;
         // moveScript.pentagon=pentagon;
         // moveScript.path = pentagon.transform.position - transform.position;

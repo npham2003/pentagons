@@ -208,8 +208,8 @@ public class GameController : MonoBehaviour
         }
         
 
-        //return melody;
-        return new List<int>(){0,0,0,0,0};
+        return melody;
+        
 
     }
 

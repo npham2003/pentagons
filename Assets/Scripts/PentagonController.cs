@@ -43,16 +43,10 @@ public class PentagonController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other) {
         if(other.tag=="Triangle"){
-            print("hi");
+            currentCollisionObject = null;
             canPickUp = false;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject == currentCollisionObject)
-        {
-            currentCollisionObject = null;
-        }
-    }
+
 }

@@ -9,6 +9,7 @@ public class MelodyModel : MonoBehaviour
     public static Dictionary<string, Melody> allMelodiesMap;
 
 
+
     public enum TriangleTone
     {
         tone1,
@@ -21,39 +22,48 @@ public class MelodyModel : MonoBehaviour
         tone8
     }
 
+    public static Color[] melodyColors = new Color[5]{
+        new Color(90/255f, 181/255f, 255/255f, 1f),
+        new Color(255/255f, 186/255f, 244/255f, 1f),
+        new Color(237/255f, 116/255f, 71/255f, 1f),
+        new Color(220/255f, 232/255f, 209/255f, 1f),
+        new Color(255/255f, 224/255f, 90/255f, 1f)
+    };
+
+
+
+
+  
+    
+    public List<KeyValuePair<Color, TriangleTone>> tones = new List<KeyValuePair<Color, TriangleTone>>(){
+        new KeyValuePair<Color, TriangleTone>(new Color(90/255f, 181/255f, 255/255f, 1f), TriangleTone.tone1),
+        new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 186/255f, 244/255f, 1f), TriangleTone.tone2),
+        new KeyValuePair<Color, TriangleTone>(new Color(237/255f, 116/255f, 71/255f, 1f), TriangleTone.tone3),
+        new KeyValuePair<Color, TriangleTone>(new Color(220/255f, 232/255f, 209/255f, 1f), TriangleTone.tone4),
+        new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 224/255f, 90/255f, 1f), TriangleTone.tone5)
+    };
+   
     public void Awake()
     {
 
         allMelodies = new List<Melody>
         { 
              new Melody(
-                "Melody 3", new List<KeyValuePair<Color, TriangleTone>>()
+                "Melody 3", new List<int>()
                 {
-                    new KeyValuePair<Color, TriangleTone>(new Color(90/255f, 181/255f, 255/255f, 1f), TriangleTone.tone1),
-                    new KeyValuePair<Color, TriangleTone>(new Color(237/255f, 116/255f, 71/255f, 1f), TriangleTone.tone3),
-                    new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 186/255f, 244/255f, 1f), TriangleTone.tone2),
-                    new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 224/255f, 90/255f, 1f), TriangleTone.tone5 ),
-                    new KeyValuePair<Color, TriangleTone>(new Color(220/255f, 232/255f, 209/255f, 1f), TriangleTone.tone4)
+                    0,2,1,4,3
                 }
                 ),
              new Melody(
-                "Melody 4", new List<KeyValuePair<Color, TriangleTone>>()
+                "Melody 4", new List<int>()
                 {
-                     new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 186/255f, 244/255f, 1f), TriangleTone.tone2),
-                     new KeyValuePair<Color, TriangleTone>(new Color(237/255f, 116/255f, 71/255f, 1f), TriangleTone.tone3),
-                     new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 224/255f, 90/255f, 1f), TriangleTone.tone5),
-                     new KeyValuePair<Color, TriangleTone>(new Color(90/255f, 181/255f, 255/255f, 1f), TriangleTone.tone1),
-                     new KeyValuePair<Color, TriangleTone>(new Color(220/255f, 232/255f, 209/255f, 1f), TriangleTone.tone4),
+                     1,2,4,0,3
                 }
                 ),
              new Melody(
-                "Melody 5",new List<KeyValuePair<Color, TriangleTone>>()
+                "Melody 5",new List<int>()
                 {
-                     new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 224/255f, 90/255f, 1f), TriangleTone.tone5),
-                     new KeyValuePair<Color, TriangleTone>(new Color(90/255f, 181/255f, 255/255f, 1f), TriangleTone.tone1),
-                     new KeyValuePair<Color, TriangleTone>(new Color(255/255f, 186/255f, 244/255f, 1f), TriangleTone.tone2),
-                     new KeyValuePair<Color, TriangleTone>(new Color(237/255f, 116/255f, 71/255f, 1f), TriangleTone.tone3),
-                     new KeyValuePair<Color, TriangleTone>(new Color(220/255f, 232/255f, 209/255f, 1f), TriangleTone.tone4),
+                     4,0,1,2,3
                 }
                 ),
         };

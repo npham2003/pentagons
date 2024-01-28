@@ -14,9 +14,9 @@ public class Spawner : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 1;
-    public static KeyValuePair<Color, TriangleTone> randomTriangle;
+    public static KeyValuePair<Color, int> randomTriangle;
     public GameObject pentagon;
-    public Dictionary<Color, TriangleTone> possibleTriangles;
+    public Dictionary<Color, int> possibleTriangles;
     public Color triangleColor;
    
 
@@ -26,13 +26,13 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        possibleTriangles = new Dictionary<Color, TriangleTone>()
+        possibleTriangles = new Dictionary<Color, int>()
         {
-            { new Color(90/255f, 181/255f, 255/255f, 1f), TriangleTone.tone1 },
-            { new Color(255/255f, 186/255f, 244/255f, 1f), TriangleTone.tone2 },
-            { new Color(237/255f, 116/255f, 71/255f, 1f), TriangleTone.tone3 },
-            { new Color(220/255f, 232/255f, 209/255f, 1f), TriangleTone.tone4},
-            { new Color(255/255f, 224/255f, 90/255f, 1f), TriangleTone.tone5 }
+            { new Color(90/255f, 181/255f, 255/255f, 1f), 0 },
+            { new Color(255/255f, 186/255f, 244/255f, 1f), 1},
+            { new Color(237/255f, 116/255f, 71/255f, 1f), 2 },
+            { new Color(220/255f, 232/255f, 209/255f, 1f), 3},
+            { new Color(255/255f, 224/255f, 90/255f, 1f), 4}
 
         };
 
@@ -81,10 +81,10 @@ public class Spawner : MonoBehaviour
     }
 
 
-    public KeyValuePair<Color, TriangleTone> GetRandomTriangle()
+    public KeyValuePair<Color, int> GetRandomTriangle()
     {
         int randomIndex = UnityEngine.Random.Range(0, possibleTriangles.Count);
         Color randomKey = new List<Color>(possibleTriangles.Keys)[randomIndex];
-        return new KeyValuePair<Color, TriangleTone>(randomKey, possibleTriangles[randomKey]);
+        return new KeyValuePair<Color, int>(randomKey, possibleTriangles[randomKey]);
     }
 }

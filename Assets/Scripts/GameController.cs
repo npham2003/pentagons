@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
 
     public PlayerState player;
     public PentagonController pentagonController; 
-    public Melody currentMelody;
+    public List<int> currentMelody;
     public Spawner triangle;
 
     public GameObject tutorial;
@@ -48,7 +48,9 @@ public class GameController : MonoBehaviour
 
     public AudioSource audioSource;
     
-    
+    public GameObject[] playerTriangles;
+
+    public int iter;
 
 
     private void OnEnable()
@@ -81,7 +83,7 @@ public class GameController : MonoBehaviour
             tutorial.SetActive(true);
             
             for(int i=0;i<tutTriangles.Length;i++){
-                tutTriangles[i].GetComponent<SpriteRenderer>().color = melodyColors[currentMelody.triangles[i]];
+                tutTriangles[i].GetComponent<SpriteRenderer>().color = melodyColors[currentMelody[i]];
                 
             }
 
@@ -95,62 +97,80 @@ public class GameController : MonoBehaviour
             playerPentagon.SetActive(true);
             tutorial.SetActive(false);
             player = PlayerState.playing;
-            currentKeyTriangle = currentMelody.triangles[0];
+            currentKeyTriangle = currentMelody[0];
+            iter=0;
         }
         //PLAYING STATE
         if(player == PlayerState.playing)
         {
             //if triangle enters pentagon and player presses space check if the triangle is the correct one and activate the correct triangle on the pentagon
             if(Input.GetKeyDown(KeyCode.Space)){
+                
                 if(pentagonController.canPickUp)
                 {
                     Debug.Log("hit tri");
                     
                     if (randomTriangle.Key == melodyColors[currentKeyTriangle])
                     {
-                        if (currentKeyTriangle == currentMelody.triangles[0])
+                        if (currentKeyTriangle == currentMelody[iter])
                         {
-                            topLeftTri.SetActive(true);
-                            topLeftTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                            currentKeyTriangle = currentMelody.triangles[1];
+                            
+                            playerTriangles[iter].SetActive(true);
+                            playerTriangles[iter].GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
+                            iter+=1;
+                            currentKeyTriangle = currentMelody[iter];
                         
                         }
-                        else if (currentKeyTriangle == currentMelody.triangles[1])
-                        {
-                            topCenterTri.SetActive(true);
-                            topCenterTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                            currentKeyTriangle = currentMelody.triangles[2];
                         
-                        }
-                        else if (currentKeyTriangle == currentMelody.triangles[2])
-                        {
-                            topRightTri.SetActive(true);
-                            topRightTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                            currentKeyTriangle = currentMelody.triangles[3];
+                        // if (currentKeyTriangle == currentMelody[0])
+                        // {
+                        //     topLeftTri.SetActive(true);
+                        //     topLeftTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
+                        //     currentKeyTriangle = currentMelody[1];
+                        
+                        // }
+                        // else if (currentKeyTriangle == currentMelody[1])
+                        // {
+                        //     topCenterTri.SetActive(true);
+                        //     topCenterTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
+                        //     currentKeyTriangle = currentMelody[2];
+                        
+                        // }
+                        // else if (currentKeyTriangle == currentMelody[2])
+                        // {
+                        //     topRightTri.SetActive(true);
+                        //     topRightTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
+                        //     currentKeyTriangle = currentMelody[3];
                             
 
-                        }
-                        else if (currentKeyTriangle == currentMelody.triangles[3])
-                        {
-                            BottomRightTri.SetActive(true);
-                            BottomRightTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                            currentKeyTriangle = currentMelody.triangles[4];
+                        // }
+                        // else if (currentKeyTriangle == currentMelody[3])
+                        // {
+                        //     BottomRightTri.SetActive(true);
+                        //     BottomRightTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
+                        //     currentKeyTriangle = currentMelody[4];
                             
 
-                        }
-                        else if (currentKeyTriangle == currentMelody.triangles[4])
-                        {
-                            BottomLeftTri.SetActive(true);
-                            BottomLeftTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                            player = PlayerState.won;
+                        // }
+                        // else if (currentKeyTriangle == currentMelody[4])
+                        // {
+                        //     BottomLeftTri.SetActive(true);
+                        //     BottomLeftTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
+                        //     player = PlayerState.won;
                         
-                        }
+                        // }
                     }else{
                         LoseLife();
                     }
+                    
                 }else{
                     LoseLife();
                 }
+                Destroy(triangle.newTriangle);
+                triangle.Spawn();
+            }
+            if(iter==5){
+                player=PlayerState.won;
             }
         }
 
@@ -175,12 +195,21 @@ public class GameController : MonoBehaviour
             LoseLife();
         }
     }
-    public static Melody GetRandomMelody()
+    public static List<int> GetRandomMelody()
     {
 
         int randomIndex = Random.Range(0, allMelodies.Count);
-       
-        return allMelodies[randomIndex];
+        
+        List<int> melody = new List<int>();
+        for(int i=0;i<5;i++){
+            int randomNote = Random.Range(0,5);
+            melody.Add(randomNote);
+            Debug.Log(randomNote);
+        }
+        
+
+        return melody;
+        
 
     }
 
@@ -188,7 +217,7 @@ public class GameController : MonoBehaviour
         for(int i=0;i<triangles.Length;i++){
             Color oldColor = triangles[i].GetComponent<SpriteRenderer>().color;
             triangles[i].GetComponent<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,0.5f);
-            audioSource.clip=playerPentagon.GetComponent<PentagonController>().tones[currentMelody.triangles[i]];
+            audioSource.clip=playerPentagon.GetComponent<PentagonController>().tones[currentMelody[i]];
             audioSource.Play();
             yield return new WaitForSeconds(1);
             triangles[i].GetComponent<SpriteRenderer>().color = new Color(oldColor.r,oldColor.g,oldColor.b,1);

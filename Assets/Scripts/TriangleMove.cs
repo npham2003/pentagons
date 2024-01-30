@@ -20,6 +20,7 @@ public class TriangleMove : MonoBehaviour
     void Start()
     {
         gameController=GameObject.FindGameObjectWithTag("GameController");
+        Debug.Log(speed + "speed"); 
 
     }
 
@@ -34,7 +35,6 @@ public class TriangleMove : MonoBehaviour
             gameObject.SetActive(false);
 
             spawner.Spawn();
-            
             Destroy(gameObject);
             
         }

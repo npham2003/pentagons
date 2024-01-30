@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using static MelodyModel;
 using static PentagonController;
@@ -17,6 +19,7 @@ public class GameController : MonoBehaviour
         cutscene1,
         cutscene2,
         cutscene3,
+        continueNextLevel,
         playing,
         won,
         lost
@@ -29,7 +32,9 @@ public class GameController : MonoBehaviour
     public GameObject BottomLeftTri;
     public GameObject BottomRightTri;
 
+    public TMP_Text levelText; 
 
+    public GameObject trianglePrefab;
     public PlayerState player;
     public PentagonController pentagonController; 
     public List<int> currentMelody;
@@ -52,10 +57,24 @@ public class GameController : MonoBehaviour
 
     public int iter;
 
+    public Sprite[] possibleBackgrounds;
+
+    public GameObject currentBackground; 
+
+    public static int levelCounter = 1;
+
+    public static bool isNextLevel = false; 
+
+    
+
+   
+
+
 
     private void OnEnable()
     {
-        player = PlayerState.none; 
+        player = PlayerState.none;
+
     }
 
     // Start is called before the first frame update
@@ -63,17 +82,27 @@ public class GameController : MonoBehaviour
     {
         player = PlayerState.start;
         audioSource = gameObject.GetComponent<AudioSource>();
+       
+
+
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        levelText.text = "Level " + levelCounter;
+
         //START STATE
-        if(player == PlayerState.start)
+        if (player == PlayerState.start)
         {
+
+            Debug.Log(levelCounter + "level counter");
             currentMelody = GetRandomMelody();
+            int randomBackground = Random.Range(0, possibleBackgrounds.Length);
+            currentBackground.GetComponent<SpriteRenderer>().sprite = possibleBackgrounds[randomBackground]; 
             player = PlayerState.cutscene1;
 
         }
@@ -81,8 +110,9 @@ public class GameController : MonoBehaviour
         if(player == PlayerState.cutscene1){
             playerPentagon.SetActive(false);
             tutorial.SetActive(true);
-            
-            for(int i=0;i<tutTriangles.Length;i++){
+          
+
+            for (int i=0;i<tutTriangles.Length;i++){
                 tutTriangles[i].GetComponent<SpriteRenderer>().color = melodyColors[currentMelody[i]];
                 
             }
@@ -92,7 +122,14 @@ public class GameController : MonoBehaviour
   
         }
         if(player == PlayerState.cutscene3){
-           
+
+            if (isNextLevel && levelCounter > 1)
+            {
+
+                triangle.moveSpeed += 4;
+                isNextLevel = false;
+            }
+
             triangle.Spawn();
             playerPentagon.SetActive(true);
             tutorial.SetActive(false);
@@ -100,15 +137,19 @@ public class GameController : MonoBehaviour
             currentKeyTriangle = currentMelody[0];
             iter=0;
         }
+
         //PLAYING STATE
         if(player == PlayerState.playing)
         {
-            //if triangle enters pentagon and player presses space check if the triangle is the correct one and activate the correct triangle on the pentagon
-            if(Input.GetKeyDown(KeyCode.Space)){
+           
+
+  
+            if (Input.GetKeyDown(KeyCode.Space)){
                 
                 if(pentagonController.canPickUp)
                 {
                     Debug.Log("hit tri");
+
                     
                     if (randomTriangle.Key == melodyColors[currentKeyTriangle])
                     {
@@ -119,65 +160,45 @@ public class GameController : MonoBehaviour
                             playerTriangles[iter].GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
                             iter+=1;
                             currentKeyTriangle = currentMelody[iter];
-                        
                         }
                         
-                        // if (currentKeyTriangle == currentMelody[0])
-                        // {
-                        //     topLeftTri.SetActive(true);
-                        //     topLeftTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                        //     currentKeyTriangle = currentMelody[1];
-                        
-                        // }
-                        // else if (currentKeyTriangle == currentMelody[1])
-                        // {
-                        //     topCenterTri.SetActive(true);
-                        //     topCenterTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                        //     currentKeyTriangle = currentMelody[2];
-                        
-                        // }
-                        // else if (currentKeyTriangle == currentMelody[2])
-                        // {
-                        //     topRightTri.SetActive(true);
-                        //     topRightTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                        //     currentKeyTriangle = currentMelody[3];
-                            
-
-                        // }
-                        // else if (currentKeyTriangle == currentMelody[3])
-                        // {
-                        //     BottomRightTri.SetActive(true);
-                        //     BottomRightTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                        //     currentKeyTriangle = currentMelody[4];
-                            
-
-                        // }
-                        // else if (currentKeyTriangle == currentMelody[4])
-                        // {
-                        //     BottomLeftTri.SetActive(true);
-                        //     BottomLeftTri.GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
-                        //     player = PlayerState.won;
-                        
-                        // }
                     }else{
                         LoseLife();
+                        
                     }
                     
                 }else{
                     LoseLife();
+                    
                 }
                 Destroy(triangle.newTriangle);
                 triangle.Spawn();
             }
             if(iter==5){
-                player=PlayerState.won;
-            }
+                if(levelCounter >= 3)
+                {
+                    player=PlayerState.won;
+                } else {
+                    levelCounter++;
+                    isNextLevel = true;
+                    player = PlayerState.continueNextLevel;
+                }
+            } 
         }
 
+
+        //CONTINUE TO NEXT LEVEL 
+        if(player == PlayerState.continueNextLevel)
+        {
+            player = PlayerState.start;
+            Debug.Log(levelCounter + "level counter"); 
+            SceneManager.LoadScene("Continue Scene");   
+        }
 
         //WON STATE
         if(player == PlayerState.won)
         {
+            levelCounter = 1;
             SceneManager.LoadScene("Win Scene");
         }
 
@@ -197,17 +218,13 @@ public class GameController : MonoBehaviour
     }
     public static List<int> GetRandomMelody()
     {
-
-        int randomIndex = Random.Range(0, allMelodies.Count);
         
         List<int> melody = new List<int>();
         for(int i=0;i<5;i++){
             int randomNote = Random.Range(0,5);
             melody.Add(randomNote);
-            Debug.Log(randomNote);
         }
         
-
         return melody;
         
 
@@ -229,6 +246,7 @@ public class GameController : MonoBehaviour
         lifeIcons[lives].SetActive(false);
         if(lives==0){
             player = PlayerState.lost;
+            levelCounter = 1;
         }
     }
 

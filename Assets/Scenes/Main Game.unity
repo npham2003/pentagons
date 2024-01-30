@@ -896,7 +896,7 @@ GameObject:
   m_Component:
   - component: {fileID: 615409463}
   - component: {fileID: 615409462}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: life 3 border
   m_TagString: Pentagon
   m_Icon: {fileID: 0}
@@ -1070,7 +1070,7 @@ GameObject:
   m_Component:
   - component: {fileID: 741633775}
   - component: {fileID: 741633774}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: life 1 border
   m_TagString: Pentagon
   m_Icon: {fileID: 0}
@@ -1426,7 +1426,7 @@ GameObject:
   - component: {fileID: 908311726}
   - component: {fileID: 908311724}
   - component: {fileID: 908311725}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: life 3
   m_TagString: Pentagon
   m_Icon: {fileID: 0}
@@ -1614,7 +1614,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017217335}
   - component: {fileID: 1017217334}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: life 2 border
   m_TagString: Pentagon
   m_Icon: {fileID: 0}
@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 1131652844}
   - component: {fileID: 1131652842}
   - component: {fileID: 1131652843}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: life 1
   m_TagString: Pentagon
   m_Icon: {fileID: 0}
@@ -2953,7 +2953,7 @@ GameObject:
   - component: {fileID: 1751341356}
   - component: {fileID: 1751341354}
   - component: {fileID: 1751341355}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: life 2
   m_TagString: Pentagon
   m_Icon: {fileID: 0}

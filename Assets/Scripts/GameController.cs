@@ -20,9 +20,7 @@ public class GameController : MonoBehaviour
         cutscene2,
         cutscene3,
         continueNextLevel,
-        playingLevel1,
-        playingLevel2,
-        playingLevel3,
+        playing,
         won,
         lost
     }
@@ -65,6 +63,8 @@ public class GameController : MonoBehaviour
 
     public static int levelCounter = 1;
 
+    public static bool isNextLevel = false; 
+
     
 
    
@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour
     private void OnEnable()
     {
         player = PlayerState.none;
-        //DontDestroyOnLoad(gameObject);
+
     }
 
     // Start is called before the first frame update
@@ -122,21 +122,28 @@ public class GameController : MonoBehaviour
   
         }
         if(player == PlayerState.cutscene3){
-           
+
+            if (isNextLevel && levelCounter > 1)
+            {
+
+                triangle.moveSpeed += 4;
+                isNextLevel = false;
+            }
+
             triangle.Spawn();
             playerPentagon.SetActive(true);
             tutorial.SetActive(false);
-            player = PlayerState.playingLevel1;
+            player = PlayerState.playing;
             currentKeyTriangle = currentMelody[0];
             iter=0;
         }
 
-        //PLAYING LEVEL 1 STATE
-        if(player == PlayerState.playingLevel1)
+        //PLAYING STATE
+        if(player == PlayerState.playing)
         {
            
-           
-           
+
+  
             if (Input.GetKeyDown(KeyCode.Space)){
                 
                 if(pentagonController.canPickUp)
@@ -153,9 +160,6 @@ public class GameController : MonoBehaviour
                             playerTriangles[iter].GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
                             iter+=1;
                             currentKeyTriangle = currentMelody[iter];
-                            
-
-                        
                         }
                         
                     }else{
@@ -176,13 +180,8 @@ public class GameController : MonoBehaviour
                     player=PlayerState.won;
                 } else {
                     levelCounter++;
-                    
-                    triangle.moveSpeed += 25;
-                    Debug.Log(triangle.moveSpeed + "movespeed");
-                    
+                    isNextLevel = true;
                     player = PlayerState.continueNextLevel;
-
-                    
                 }
             } 
         }
@@ -199,6 +198,7 @@ public class GameController : MonoBehaviour
         //WON STATE
         if(player == PlayerState.won)
         {
+            levelCounter = 1;
             SceneManager.LoadScene("Win Scene");
         }
 
@@ -246,7 +246,7 @@ public class GameController : MonoBehaviour
         lifeIcons[lives].SetActive(false);
         if(lives==0){
             player = PlayerState.lost;
-            levelCounter = 0;
+            levelCounter = 1;
         }
     }
 

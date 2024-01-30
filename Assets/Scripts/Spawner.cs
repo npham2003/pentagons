@@ -10,10 +10,9 @@ public class Spawner : MonoBehaviour
     public GameObject trianglePrefab;
     public GameObject newTriangle;
 
- 
 
     [SerializeField]
-    private float moveSpeed = 1;
+    public float moveSpeed = 1;
     public static KeyValuePair<Color, int> randomTriangle;
     public GameObject pentagon;
     public Dictionary<Color, int> possibleTriangles;
@@ -23,6 +22,7 @@ public class Spawner : MonoBehaviour
 
     public int[] melody = new int[5];
     public int iter=0;
+
     // Start is called before the first frame update
     void Start()
     {

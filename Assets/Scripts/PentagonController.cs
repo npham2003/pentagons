@@ -24,11 +24,12 @@ public class PentagonController : MonoBehaviour
     {
         if(Input.GetKeyDown(key))
         {
-            pentagon.color = new Color (204, 147, 209, 1);
+            pentagon.color = new Color (121/255f, 43/255f, 128/255f, 1);
+           
         }
         
         if(Input.GetKeyUp(key)){
-            pentagon.color = new Color (121, 43, 128, 1);
+            pentagon.color = new Color (204/255f, 147/255f, 209/255f, 1);
         }
     }
 
@@ -47,6 +48,4 @@ public class PentagonController : MonoBehaviour
             canPickUp = false;
         }
     }
-
-
 }

@@ -10,6 +10,8 @@ public class LoadScene : MonoBehaviour
     public GameObject playButtonText;
     public Animator animator;
 
+    bool waiting = true;
+
 
     void Start()
     {
@@ -20,14 +22,17 @@ public class LoadScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKey && !hasTriggered) {
+        if (Input.GetKeyDown(KeyCode.Space) && !hasTriggered && !waiting) {
             SceneManager.LoadScene(sceneToLoad); 
             hasTriggered = true; 
         }
+        waiting=false;
     }
 
+    
+
     IEnumerator wait(){
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
     }
 
 }

@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour
             if (isNextLevel && levelCounter > 1)
             {
 
-                triangle.moveSpeed += 2.5f;
+                triangle.moveSpeed += 2.5f * (levelCounter-1);
                 isNextLevel = false;
             }
 

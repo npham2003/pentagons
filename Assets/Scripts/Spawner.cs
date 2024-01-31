@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
             { new Color(90/255f, 181/255f, 255/255f, 1f), 0 },
             { new Color(255/255f, 186/255f, 244/255f, 1f), 1},
             { new Color(237/255f, 116/255f, 71/255f, 1f), 2 },
-            { new Color(220/255f, 232/255f, 209/255f, 1f), 3},
+            { new Color(119/255f, 221/255f, 119/255f, 1f), 3},
             { new Color(255/255f, 224/255f, 90/255f, 1f), 4}
 
         };

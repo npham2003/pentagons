@@ -553,7 +553,19 @@ MonoBehaviour:
   playerPentagon: {fileID: 760137725}
   currentKeyTriangle: 0
   audioSource: {fileID: 216131816}
-  backgroundMusic: []
+  backgroundMusic:
+  - {fileID: 8300000, guid: 10bd45d76cebb09458037e0686f61acf, type: 3}
+  - {fileID: 8300000, guid: 93829459e65fd524b95cd545fad826ba, type: 3}
+  - {fileID: 8300000, guid: 71c61182262b03246805e1f92c0efdbb, type: 3}
+  - {fileID: 8300000, guid: 7443067065007a84eb1230ec5ade3b3e, type: 3}
+  - {fileID: 8300000, guid: 226f61897e8ab024d8a53ced356bbfce, type: 3}
+  - {fileID: 8300000, guid: 5709cc99e1af91e4faf6c6b167250b13, type: 3}
+  - {fileID: 8300000, guid: cc30eaab3198d8b4ab3fcc1650c318b5, type: 3}
+  - {fileID: 8300000, guid: 79ea64f3f5e37cc4e99bd61dbd69d48f, type: 3}
+  - {fileID: 8300000, guid: bd1cfe08d3357d34b8e095afef3433f6, type: 3}
+  - {fileID: 8300000, guid: d2cb8f34e7e8a654787374d2ba1c38a6, type: 3}
+  - {fileID: 8300000, guid: aa06a9e0a98ebed41b6a1086076f4549, type: 3}
+  randomMusic: 0
   playerTriangles:
   - {fileID: 1685896193}
   - {fileID: 1412749860}
@@ -563,8 +575,8 @@ MonoBehaviour:
   iter: 0
   possibleBackgrounds:
   - {fileID: 21300000, guid: 55b717f21a4834817bccc81f99163223, type: 3}
-  - {fileID: 21300000, guid: cf94d3281cc774c86b46ca51df8d53bf, type: 3}
   - {fileID: 21300000, guid: dc674941c435346d5be26472f0a99d90, type: 3}
+  - {fileID: 21300000, guid: cf94d3281cc774c86b46ca51df8d53bf, type: 3}
   - {fileID: 21300000, guid: 8d5a1dbbcd6e9d84a94f357e8f0e40ab, type: 3}
   currentBackground: {fileID: 1404136228}
 --- !u!4 &216131814

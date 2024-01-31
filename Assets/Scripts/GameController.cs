@@ -9,6 +9,7 @@ using static PentagonController;
 using static Spawner;
 using UnityEngine.UIElements;
 using UnityEditor;
+using Unity.VisualScripting;
 
 
 public class GameController : MonoBehaviour
@@ -55,8 +56,10 @@ public class GameController : MonoBehaviour
 
     public AudioSource audioSource;
 
-    public AudioSource[] backgroundMusic;
-    
+    public AudioClip[] backgroundMusic;
+
+    public int randomMusic;
+
     public GameObject[] playerTriangles;
 
     public int iter;
@@ -82,8 +85,9 @@ public class GameController : MonoBehaviour
     {
             currentBackground.GetComponent<SpriteRenderer>().sprite = possibleBackgrounds[levelCounter-1];
 
-            //int randomBackground = Random.Range(0, possibleBackgrounds.Length);
-            //currentBackground.GetComponent<SpriteRenderer>().sprite = possibleBackgrounds[randomBackground];
+
+        //int randomBackground = Random.Range(0, possibleBackgrounds.Length);
+        //currentBackground.GetComponent<SpriteRenderer>().sprite = possibleBackgrounds[randomBackground];
 
         player = PlayerState.start;
 
@@ -121,6 +125,36 @@ public class GameController : MonoBehaviour
   
         }
         if(player == PlayerState.cutscene3){
+
+            if (levelCounter == 1)
+            {
+                randomMusic = Random.Range(0, 2);
+                //print(randomMusic);
+                gameObject.GetComponent<AudioSource>().clip = backgroundMusic[randomMusic];
+
+            }
+            if (levelCounter == 2)
+            {
+                randomMusic = Random.Range(2, 4);
+                gameObject.GetComponent<AudioSource>().clip = backgroundMusic[randomMusic];
+
+            }
+            if (levelCounter == 3)
+            {
+                randomMusic = Random.Range(4, 7);
+                gameObject.GetComponent<AudioSource>().clip = backgroundMusic[randomMusic];
+
+            }
+            if (levelCounter == 4)
+            {
+                randomMusic = Random.Range(7, 12);
+                gameObject.GetComponent<AudioSource>().clip = backgroundMusic[randomMusic];
+
+            }
+
+            gameObject.GetComponent<AudioSource>().volume = 0.1f;
+            gameObject.GetComponent<AudioSource>().Play();
+
 
             if (isNextLevel && levelCounter > 1)
             {

@@ -40,7 +40,9 @@ public class Spawner : MonoBehaviour
 
         
     }
-
+    private void Update() {
+        
+    }
 
     public void Spawn(){
         float x = UnityEngine.Random.Range(-10,10);

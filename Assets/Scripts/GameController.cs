@@ -141,9 +141,6 @@ public class GameController : MonoBehaviour
         //PLAYING STATE
         if(player == PlayerState.playing)
         {
-           
-
-  
             if (Input.GetKeyDown(KeyCode.Space)){
                 
                 if(pentagonController.canPickUp)
@@ -155,7 +152,6 @@ public class GameController : MonoBehaviour
                     {
                         if (currentKeyTriangle == currentMelody[iter])
                         {
-                            
                             playerTriangles[iter].SetActive(true);
                             playerTriangles[iter].GetComponent<SpriteRenderer>().color = melodyColors[currentKeyTriangle];
                             iter+=1;
@@ -173,6 +169,7 @@ public class GameController : MonoBehaviour
                 }
                 Destroy(triangle.newTriangle);
                 triangle.Spawn();
+                
             }
             if(iter==5){
                 if(levelCounter >= 3)

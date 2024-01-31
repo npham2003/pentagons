@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
-using UnityEditor.Scripting;
 using UnityEngine;
 
 public class TriangleMove : MonoBehaviour

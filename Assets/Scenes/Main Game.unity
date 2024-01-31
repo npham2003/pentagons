@@ -1938,7 +1938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trianglePrefab: {fileID: 2907996976438089476, guid: f4fa712a431b636489f00ad3a743881a, type: 3}
   newTriangle: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 7.5
   pentagon: {fileID: 502959931}
   triangleColor: {r: 0.4745098, g: 0.16862746, b: 0.5019608, a: 0.003921569}
   pentagon2: {fileID: 760137725}

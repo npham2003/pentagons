@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using static MelodyModel;
 using static PentagonController;
 using static Spawner;
+using UnityEngine.UIElements;
+using UnityEditor;
 
 
 public class GameController : MonoBehaviour
@@ -52,6 +54,8 @@ public class GameController : MonoBehaviour
     public int currentKeyTriangle;
 
     public AudioSource audioSource;
+
+    public AudioSource[] backgroundMusic;
     
     public GameObject[] playerTriangles;
 
@@ -67,10 +71,6 @@ public class GameController : MonoBehaviour
 
     
 
-   
-
-
-
     private void OnEnable()
     {
         player = PlayerState.none;
@@ -80,12 +80,12 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+            currentBackground.GetComponent<SpriteRenderer>().sprite = possibleBackgrounds[levelCounter-1];
+
+            //int randomBackground = Random.Range(0, possibleBackgrounds.Length);
+            //currentBackground.GetComponent<SpriteRenderer>().sprite = possibleBackgrounds[randomBackground];
+
         player = PlayerState.start;
-        audioSource = gameObject.GetComponent<AudioSource>();
-       
-
-
-
 
     }
 
@@ -101,8 +101,7 @@ public class GameController : MonoBehaviour
 
             Debug.Log(levelCounter + "level counter");
             currentMelody = GetRandomMelody();
-            int randomBackground = Random.Range(0, possibleBackgrounds.Length);
-            currentBackground.GetComponent<SpriteRenderer>().sprite = possibleBackgrounds[randomBackground]; 
+            
             player = PlayerState.cutscene1;
 
         }
@@ -175,7 +174,7 @@ public class GameController : MonoBehaviour
                 triangle.Spawn();
             }
             if(iter==5){
-                if(levelCounter >= 3)
+                if(levelCounter >= 4)
                 {
                     player=PlayerState.won;
                 } else {

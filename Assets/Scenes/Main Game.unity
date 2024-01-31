@@ -553,6 +553,7 @@ MonoBehaviour:
   playerPentagon: {fileID: 760137725}
   currentKeyTriangle: 0
   audioSource: {fileID: 216131816}
+  backgroundMusic: []
   playerTriangles:
   - {fileID: 1685896193}
   - {fileID: 1412749860}
@@ -564,6 +565,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 55b717f21a4834817bccc81f99163223, type: 3}
   - {fileID: 21300000, guid: cf94d3281cc774c86b46ca51df8d53bf, type: 3}
   - {fileID: 21300000, guid: dc674941c435346d5be26472f0a99d90, type: 3}
+  - {fileID: 21300000, guid: 8d5a1dbbcd6e9d84a94f357e8f0e40ab, type: 3}
   currentBackground: {fileID: 1404136228}
 --- !u!4 &216131814
 Transform:

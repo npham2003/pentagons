@@ -26,4 +26,8 @@ public class LoadScene : MonoBehaviour
         }
     }
 
+    IEnumerator wait(){
+        yield return new WaitForSeconds(0.5f);
+    }
+
 }

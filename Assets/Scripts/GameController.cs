@@ -192,6 +192,7 @@ public class GameController : MonoBehaviour
         {
             player = PlayerState.start;
             Debug.Log(levelCounter + "level counter"); 
+            wait();
             SceneManager.LoadScene("Continue Scene");   
         }
 
@@ -199,6 +200,7 @@ public class GameController : MonoBehaviour
         if(player == PlayerState.won)
         {
             levelCounter = 1;
+            wait();
             SceneManager.LoadScene("Win Scene");
         }
 
@@ -206,6 +208,7 @@ public class GameController : MonoBehaviour
         //LOST STATE
         if(player == PlayerState.lost)
         {
+            wait();
             SceneManager.LoadScene("Lose Scene");
         }
 
@@ -250,4 +253,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    IEnumerator wait(){
+        yield return new WaitForSeconds(0.5f);
+    }
 }
